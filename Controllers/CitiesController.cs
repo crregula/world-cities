@@ -32,7 +32,7 @@ namespace WorldCities.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<City>> GetCity(int id)
         {
-            var city = await _context.Cities.FindAsync(id);
+            var city = await _context.Cities.Include(city => city.Country).FirstOrDefaultAsync();
 
             if (city == null)
             {
