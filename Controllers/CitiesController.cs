@@ -25,7 +25,8 @@ namespace WorldCities.Controllers
         // GET: api/Cities/?pageIndex=0&pageSize=10
         // GET: api/Cities/0/10
         [HttpGet]
-        [Route("{pageIndex?}/{pageSize?}")]
+        // could add but would not allow for adding parameters out of order
+        //[Route("{pageIndex?}/{pageSize?}")]
         public async Task<ActionResult<ApiResult<City>>> GetCities(
             int pageIndex = 0,
             int pageSize = 10)
