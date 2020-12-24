@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WorldCities.Data;
@@ -23,7 +20,7 @@ namespace WorldCities.Controllers
 
         // GET: api/Cities
         // GET: api/Cities/?pageIndex=0&pageSize=10
-        // GET: api/Cities/?pageIndex=0&pageSize=10&sortColumn=name&sortOrder=asc
+        // GET: api/Cities/?pageIndex=0&pageSize=10&sortColumn=name&sortOrder=asc&filterColumn=name&filterQuery=query
         [HttpGet]
         public async Task<ActionResult<ApiResult<City>>> GetCities(
             int pageIndex = 0,
