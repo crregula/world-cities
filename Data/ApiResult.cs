@@ -68,12 +68,22 @@ namespace WorldCities.Data
         /// Sorting Order ("ASC", "DESC" or null if not set)
         /// </summary>
         public string SortOrder { get; set; }
+
+        /// <summary>
+        /// Filter column name (or null if not set)
+        /// </summary>
+        public string FilterColumn { get; set; }
+
+        /// <summary>
+        /// Filter Query string (to be used within the given FilterColumn)
+        /// </summary>
+        public string FilterQuery { get; set; }
         #endregion
 
         /// <summary>
         /// Private constructor called by the CreateAsync method.
         /// </summary>
-        private ApiResult(List<T> data, int count, int pageIndex, int pageSize, string sortColumn, string sortOrder)
+        private ApiResult(List<T> data, int count, int pageIndex, int pageSize, string sortColumn, string sortOrder, string filterColumn, string filterQuery)
         {
             Data = data;
             PageIndex = pageIndex;
@@ -82,11 +92,24 @@ namespace WorldCities.Data
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             SortColumn = sortColumn;
             SortOrder = sortOrder;
+            FilterColumn = filterColumn;
+            FilterQuery = filterQuery;
         }
 
         #region Methods
-        public static async Task<ApiResult<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize, string sortColumn = null, string sortOrder = null)
+        public static async Task<ApiResult<T>> CreateAsync(IQueryable<T> source, 
+            int pageIndex, 
+            int pageSize, 
+            string sortColumn = null, 
+            string sortOrder = null,
+            string filterColumn = null,
+            string filterQuery = null)
         {
+            if (!string.IsNullOrEmpty(filterColumn) && !string.IsNullOrEmpty(filterQuery) && IsValidProperty(filterColumn))
+            {
+                source = source.Where(string.Format("{0}.Contains(@0)", filterColumn), filterQuery);
+            }
+
             var count = await source.CountAsync();
 
             if (!string.IsNullOrEmpty(sortColumn) && IsValidProperty(sortColumn))
@@ -106,7 +129,9 @@ namespace WorldCities.Data
                 pageIndex,
                 pageSize,
                 sortColumn,
-                sortOrder);
+                sortOrder,
+                filterColumn,
+                filterQuery);
         }
 
         public static bool IsValidProperty(string propertyName, bool throwExceptionIfNotFound = true)
