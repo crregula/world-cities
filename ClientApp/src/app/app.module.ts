@@ -30,8 +30,9 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'cities', component: CitiesComponent },
-      { path: 'countries', component: CountriesComponent },
-      { path: 'city/:id', component: CityEditComponent }
+      { path: 'city/:id', component: CityEditComponent },
+      { path: 'city', component: CityEditComponent },
+      { path: 'countries', component: CountriesComponent }
     ]),
     BrowserAnimationsModule,
     AngularMaterialModule,
