@@ -8,12 +8,14 @@ import { map } from 'rxjs/operators';
 import { City } from './city';
 import { Country } from './../countries/country';
 
+import { BaseFormComponent } from './../base.form.component';
+
 @Component({
   selector: 'app-city-edit',
   templateUrl: './city-edit.component.html',
   styleUrls: ['./city-edit.component.css']
 })
-export class CityEditComponent {
+export class CityEditComponent extends BaseFormComponent {
 
   // the view title
   title: string;
@@ -37,7 +39,7 @@ export class CityEditComponent {
     private router: Router,
     private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string) {
-
+    super();
   }
 
   ngOnInit() {
@@ -135,30 +137,6 @@ export class CityEditComponent {
         return (result ? { isDupeCity: true } : null);
       }));
     }
-  }
-
-  // retrieve a FormControl
-  getControl(name: string) {
-    return this.form.get(name);
-  }
-
-  // returns TRUE if the FormControl is valid
-  isValid(name: string) {
-    var e = this.getControl(name);
-    return e && e.valid;
-  }
-
-  // returns TRUE if the FormControl has been changed
-  isChanged(name: string) {
-    var e = this.getControl(name);
-    return e && (e.dirty || e.touched);
-  }
-
-  // returns TRUE if the FormControl is raising an error,
-  // i.e. an invalid state after user changes
-  hasError(name: string) {
-    var e = this.getControl(name);
-    return e && (e.dirty || e.touched) && e.invalid;
   }
 }
 
