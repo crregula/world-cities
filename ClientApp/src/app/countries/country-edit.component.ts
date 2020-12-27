@@ -7,12 +7,14 @@ import { Observable } from 'rxjs';
 
 import { Country } from './country';
 
+import { BaseFormComponent } from './../base.form.component';
+
 @Component({
   selector: 'app-country-edit',
   templateUrl: './country-edit.component.html',
   styleUrls: ['./country-edit.component.css']
 })
-export class CountryEditComponent {
+export class CountryEditComponent extends BaseFormComponent {
   // the view title
   title: string;
 
@@ -33,6 +35,7 @@ export class CountryEditComponent {
     private router: Router,
     private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string) {
+    super();
   }
 
   ngOnInit() {
