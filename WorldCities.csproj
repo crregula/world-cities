@@ -37,6 +37,7 @@
     <None Remove="ClientApp\src\app\base.service.ts" />
     <None Remove="ClientApp\src\app\cities\cities.component.ts" />
     <None Remove="ClientApp\src\app\cities\city-edit.component.ts" />
+    <None Remove="ClientApp\src\app\cities\city.service.ts" />
     <None Remove="ClientApp\src\app\countries\countries.component.ts" />
     <None Remove="ClientApp\src\app\countries\country-edit.component.ts" />
   </ItemGroup>
@@ -46,6 +47,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\base.form.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\base.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\cities\city-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\cities\city.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\countries\countries.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

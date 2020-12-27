@@ -22,7 +22,7 @@ export abstract class BaseService {
   abstract post<T>(item: T): Observable<T>;
 }
 
-interface ApiResult<T> {
+export interface ApiResult<T> {
   data: T[];
   pageIndex: number;
   pageSize: number;
