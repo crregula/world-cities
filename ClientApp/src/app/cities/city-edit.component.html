@@ -103,5 +103,35 @@
         Cancel
       </button>
     </div>
+
+    <!-- Form debug info panel -->
+    <div class="card bg-light mb-3">
+      <div class="card-header">Form Debug Info</div>
+      <div class="card-body">
+        <div class="card-text">
+          <div><strong>Form value:</strong></div>
+          <div class="help-block">
+            {{form.value | json }}
+          </div>
+          <div><strong>Form status:</strong></div>
+          <div class="help-block">
+            {{form.status | json }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity log panel -->
+    <div class="card bg-light mb-3">
+      <div class="card-header">Form Activity Log</div>
+      <div class="card-body">
+        <div class="card-text">
+          <div><strong>Form value:</strong></div>
+          <div class="help-block">
+            <span *ngIf="activityLog" [innerHTML]="activityLog"></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
