@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 
 import { City } from './city';
 import { Country } from './../countries/country';
+import { CityService } from './city.service';
+import { ApiResult } from './../base.service';
 
 import { BaseFormComponent } from './../base.form.component';
 
@@ -38,7 +40,8 @@ export class CityEditComponent extends BaseFormComponent {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-    @Inject('BASE_URL') private baseUrl: string) {
+    @Inject('BASE_URL') private baseUrl: string,
+    private cityService: CityService) {
     super();
   }
 
@@ -63,8 +66,7 @@ export class CityEditComponent extends BaseFormComponent {
       // Edit Mode
 
       // fetch the city from the server
-      var url = this.baseUrl + "api/cities/" + this.id;
-      this.http.get<City>(url).subscribe(result => {
+      this.cityService.get<City>(this.id).subscribe(result => {
         this.city = result;
         this.title = "Edit - " + this.city.name;
 
@@ -101,8 +103,7 @@ export class CityEditComponent extends BaseFormComponent {
 
     if (this.id) {
       // Edit Mode
-      var url = this.baseUrl + "api/cities/" + this.city.id;
-      this.http.put<City>(url, city).subscribe(result => {
+      this.cityService.put<City>(city).subscribe(result => {
         console.log("City " + city.id + " has been updated.");
 
         // go back to the cities view
@@ -111,8 +112,7 @@ export class CityEditComponent extends BaseFormComponent {
     }
     else {
       // Create Mode
-      var url = this.baseUrl + "api/cities";
-      this.http.post<City>(url, city).subscribe(result => {
+      this.cityService.post<City>(city).subscribe(result => {
         console.log("City " + result.id + " has been created.");
 
         // go back to cities view
