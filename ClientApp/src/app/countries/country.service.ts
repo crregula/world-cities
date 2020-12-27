@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CityService extends BaseService {
+export class CountryService extends BaseService {
   constructor(
     http: HttpClient,
     @Inject('BASE_URL') baseUrl: string) {
@@ -21,7 +21,7 @@ export class CityService extends BaseService {
     filterColumn: string,
     filterQuery: string
   ): Observable<ApiResult> {
-    var url = this.baseUrl + 'api/Cities';
+    var url = this.baseUrl + 'api/Countries';
     var params = new HttpParams()
       .set("pageIndex", pageIndex.toString())
       .set("pageSize", pageSize.toString())
@@ -37,23 +37,27 @@ export class CityService extends BaseService {
     return this.http.get<ApiResult>(url, { params });
   }
 
-  get<City>(id): Observable<City> {
-    var url = this.baseUrl + "api/Cities/" + id;
-    return this.http.get<City>(url);
+  get<Country>(id): Observable<Country> {
+    var url = this.baseUrl + "api/Countries/" + id;
+    return this.http.get<Country>(url);
   }
 
-  put<City>(item): Observable<City> {
-    var url = this.baseUrl + "api/Cities/" + item.id;
-    return this.http.put<City>(url, item);
+  put<Country>(item): Observable<Country> {
+    var url = this.baseUrl + "api/Countries/" + item.id;
+    return this.http.put<Country>(url, item);
   }
 
-  post<City>(item): Observable<City> {
-    var url = this.baseUrl + "api/Cities/" + item.id;
-    return this.http.post<City>(url, item);
+  post<Country>(item): Observable<Country> {
+    var url = this.baseUrl + "api/Countries/" + item.id;
+    return this.http.post<Country>(url, item);
   }
 
-  isDupeCity(item): Observable<boolean> {
-    var url = this.baseUrl + "api/Cities/IsDupeCity";
-    return this.http.post<boolean>(url, item);
+  isDupeField(countryId, fieldName, fieldValue): Observable<boolean> {
+    var params = new HttpParams()
+      .set("countryId", countryId)
+      .set("fieldName", fieldName)
+      .set("fieldValue", fieldValue);
+    var url = this.baseUrl + "api/Countries/IsDupeField";
+    return this.http.post<boolean>(url, null, { params });
   }
 }

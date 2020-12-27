@@ -40,6 +40,7 @@
     <None Remove="ClientApp\src\app\cities\city.service.ts" />
     <None Remove="ClientApp\src\app\countries\countries.component.ts" />
     <None Remove="ClientApp\src\app\countries\country-edit.component.ts" />
+    <None Remove="ClientApp\src\app\countries\country.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +54,7 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\cities\cities.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\countries\country-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\countries\country.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -7,8 +6,10 @@ import { map } from 'rxjs/operators';
 
 import { City } from './city';
 import { Country } from './../countries/country';
-import { CityService } from './city.service';
 import { ApiResult } from './../base.service';
+
+import { CityService } from './city.service';
+import { CountryService } from '../countries/country.service';
 
 import { BaseFormComponent } from './../base.form.component';
 
@@ -39,9 +40,8 @@ export class CityEditComponent extends BaseFormComponent {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private http: HttpClient,
-    @Inject('BASE_URL') private baseUrl: string,
-    private cityService: CityService) {
+    private cityService: CityService,
+    private countryService: CountryService) {
     super();
   }
 
@@ -83,7 +83,7 @@ export class CityEditComponent extends BaseFormComponent {
 
   loadCountries() {
     // fetch all the countries from the server
-    this.cityService.getCountries<ApiResult<Country>>(0, 9999, "name", null, null, null).subscribe(result => {
+    this.countryService.getData<ApiResult<Country>>(0, 9999, "name", null, null, null).subscribe(result => {
       this.countries = result.data;
     }, error => console.error(error));
   }
