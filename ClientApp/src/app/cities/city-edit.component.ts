@@ -83,12 +83,7 @@ export class CityEditComponent extends BaseFormComponent {
 
   loadCountries() {
     // fetch all the countries from the server
-    var url = this.baseUrl + "api/countries";
-    var params = new HttpParams()
-      .set("pageSize", "9999")
-      .set("sortColumn", "name");
-
-    this.http.get<any>(url, { params }).subscribe(result => {
+    this.cityService.getCountries<ApiResult<Country>>(0, 9999, "name", null, null, null).subscribe(result => {
       this.countries = result.data;
     }, error => console.error(error));
   }
@@ -132,8 +127,7 @@ export class CityEditComponent extends BaseFormComponent {
       city.lon = this.form.get("lon").value;
       city.countryId = this.form.get("countryId").value;
 
-      var url = this.baseUrl + 'api/cities/IsDupeCity';
-      return this.http.post<boolean>(url, city).pipe(map(result => {
+      return this.cityService.isDupeCity(city).pipe(map(result => {
         return (result ? { isDupeCity: true } : null);
       }));
     }

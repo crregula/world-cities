@@ -51,4 +51,33 @@ export class CityService extends BaseService {
     var url = this.baseUrl + "api/Cities/" + item.id;
     return this.http.post<City>(url, item);
   }
+
+  getCountries<ApiResult>(
+    pageIndex: number,
+    pageSize: number,
+    sortColumn: string,
+    sortOrder: string,
+    filterColumn: string,
+    filterQuery: string
+  ): Observable<ApiResult> {
+    var url = this.baseUrl + 'api/Countries';
+    var params = new HttpParams()
+      .set("pageIndex", pageIndex.toString())
+      .set("pageSize", pageSize.toString())
+      .set("sortColumn", sortColumn)
+      .set("sortOrder", sortOrder);
+
+    if (filterQuery) {
+      params = params
+        .set("filterColumn", filterColumn)
+        .set("filterQuery", filterQuery);
+    }
+
+    return this.http.get<ApiResult>(url, { params });
+  }
+
+  isDupeCity(item): Observable<boolean> {
+    var url = this.baseUrl + "api/Cities/IsDupeCity";
+    return this.http.post<boolean>(url, item);
+  }
 }
