@@ -66,6 +66,17 @@ export class CityEditComponent extends BaseFormComponent {
         }
       });
 
+    // react to changes in the form.name control
+    this.form.get("name")!.valueChanges
+      .subscribe(val => {
+        if (!this.form.dirty) {
+          this.log("Name has been loaded with initial values.");
+        }
+        else {
+          this.log("Name was updated by the user.");
+        }
+      });
+
     this.loadData();
   }
 
